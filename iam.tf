@@ -95,8 +95,8 @@ resource "aws_iam_role_policy_attachment" "node_group_appmesh_policy" {
   role       = aws_iam_role.node_group.name
 }
 
-# Note: The ALB Ingress Controller often requires a custom policy; try the AWS-managed name if available.
+# ALB Ingress Controller policy
 resource "aws_iam_role_policy_attachment" "node_group_alb_ingress_policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AWSLoadBalancerControllerIAMPolicy"
+  policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
   role       = aws_iam_role.node_group.name
 }

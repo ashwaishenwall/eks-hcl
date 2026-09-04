@@ -13,8 +13,6 @@ resource "aws_security_group" "eks_cluster" {
 resource "aws_vpc_security_group_egress_rule" "eks_cluster_egress" {
   security_group_id = aws_security_group.eks_cluster.id
   description       = "Allow all outbound traffic"
-  from_port         = 0
-  to_port           = 0
   ip_protocol       = "-1"
   cidr_ipv4         = "0.0.0.0/0"
 }
@@ -74,8 +72,6 @@ resource "aws_vpc_security_group_ingress_rule" "node_group_kubelet" {
 resource "aws_vpc_security_group_egress_rule" "node_group_egress" {
   security_group_id = aws_security_group.node_group.id
   description       = "Allow all outbound traffic"
-  from_port         = 0
-  to_port           = 0
   ip_protocol       = "-1"
   cidr_ipv4         = "0.0.0.0/0"
 }
