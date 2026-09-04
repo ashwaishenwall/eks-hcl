@@ -21,11 +21,11 @@ resource "aws_vpc_security_group_egress_rule" "eks_cluster_egress" {
 
 # Allow cluster communication
 resource "aws_vpc_security_group_ingress_rule" "eks_cluster_from_nodes" {
-  security_group_id = aws_security_group.eks_cluster.id
-  description       = "Allow nodes to communicate with cluster"
-  from_port         = 443
-  to_port           = 443
-  ip_protocol       = "tcp"
+  security_group_id            = aws_security_group.eks_cluster.id
+  description                  = "Allow nodes to communicate with cluster"
+  from_port                    = 443
+  to_port                      = 443
+  ip_protocol                  = "tcp"
   referenced_security_group_id = aws_security_group.node_group.id
 }
 
@@ -42,31 +42,31 @@ resource "aws_security_group" "node_group" {
 
 # Allow nodes to communicate with each other
 resource "aws_vpc_security_group_ingress_rule" "node_group_self" {
-  security_group_id = aws_security_group.node_group.id
-  description       = "Allow nodes to communicate with each other"
-  from_port         = 0
-  to_port           = 65535
-  ip_protocol       = "tcp"
+  security_group_id            = aws_security_group.node_group.id
+  description                  = "Allow nodes to communicate with each other"
+  from_port                    = 0
+  to_port                      = 65535
+  ip_protocol                  = "tcp"
   referenced_security_group_id = aws_security_group.node_group.id
 }
 
 # Allow nodes to communicate with cluster
 resource "aws_vpc_security_group_ingress_rule" "node_group_from_cluster" {
-  security_group_id = aws_security_group.node_group.id
-  description       = "Allow cluster to communicate with nodes"
-  from_port         = 1025
-  to_port           = 65535
-  ip_protocol       = "tcp"
+  security_group_id            = aws_security_group.node_group.id
+  description                  = "Allow cluster to communicate with nodes"
+  from_port                    = 1025
+  to_port                      = 65535
+  ip_protocol                  = "tcp"
   referenced_security_group_id = aws_security_group.eks_cluster.id
 }
 
 # Allow kubelet API communication
 resource "aws_vpc_security_group_ingress_rule" "node_group_kubelet" {
-  security_group_id = aws_security_group.node_group.id
-  description       = "Allow kubelet API communication"
-  from_port         = 10250
-  to_port           = 10250
-  ip_protocol       = "tcp"
+  security_group_id            = aws_security_group.node_group.id
+  description                  = "Allow kubelet API communication"
+  from_port                    = 10250
+  to_port                      = 10250
+  ip_protocol                  = "tcp"
   referenced_security_group_id = aws_security_group.eks_cluster.id
 }
 

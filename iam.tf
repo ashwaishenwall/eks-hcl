@@ -73,3 +73,30 @@ resource "aws_iam_role_policy_attachment" "node_group_ssm_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.node_group.name
 }
+
+# Additional attachments (eksctl flags: --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access)
+resource "aws_iam_role_policy_attachment" "node_group_asg_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AutoScalingFullAccess"
+  role       = aws_iam_role.node_group.name
+}
+
+resource "aws_iam_role_policy_attachment" "node_group_external_dns_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
+  role       = aws_iam_role.node_group.name
+}
+
+resource "aws_iam_role_policy_attachment" "node_group_ecr_full_access" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+  role       = aws_iam_role.node_group.name
+}
+
+resource "aws_iam_role_policy_attachment" "node_group_appmesh_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSAppMeshFullAccess"
+  role       = aws_iam_role.node_group.name
+}
+
+# Note: The ALB Ingress Controller often requires a custom policy; try the AWS-managed name if available.
+resource "aws_iam_role_policy_attachment" "node_group_alb_ingress_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSLoadBalancerControllerIAMPolicy"
+  role       = aws_iam_role.node_group.name
+}
