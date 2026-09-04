@@ -51,3 +51,9 @@ variable "disk_size" {
   type        = number
   default     = 50
 }
+
+variable "public_access_cidrs" {
+  description = "List of CIDR blocks that can access the public API server endpoint"
+  type        = list(string)
+  default     = ["0.0.0.0/32"]  # Change to your IP address
+}
